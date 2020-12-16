@@ -59,7 +59,9 @@ namespace Template
                     .AddHostedService<CommandHandler>()
                     .AddDbContext<BotContext>()
                     .AddSingleton<Servers>()
-                    .AddSingleton<Images>();
+                    .AddSingleton<Images>()
+                    .AddSingleton<Ranks>()
+                    .AddSingleton<AutoRoles>();
                 })
                 .UseConsoleLifetime();
 
