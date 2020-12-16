@@ -17,6 +17,7 @@ namespace MasterYoda.Modules
         [Alias("reddit")]
         public async Task Meme(string subreddit = null)
         {
+            await Context.Channel.TriggerTypingAsync();
             //if (!Moderation.IsVerified()) return;
 
             var client = new HttpClient();

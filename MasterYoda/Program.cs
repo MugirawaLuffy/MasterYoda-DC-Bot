@@ -61,7 +61,9 @@ namespace Template
                     .AddSingleton<Servers>()
                     .AddSingleton<Images>()
                     .AddSingleton<Ranks>()
-                    .AddSingleton<AutoRoles>();
+                    .AddSingleton<AutoRoles>()
+                    .AddSingleton<RanksHelper>()
+                    .AddSingleton<AutoRolesHelper>();
                 })
                 .UseConsoleLifetime();
 

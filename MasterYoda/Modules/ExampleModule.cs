@@ -12,14 +12,14 @@ namespace Template.Modules
 {
     public class ExampleModule : ModuleBase<SocketCommandContext>
     {
-        private readonly Servers _servers;
+        
         private readonly ILogger<ExampleModule> _logger;
         private readonly Images _images;
 
-        public ExampleModule(ILogger<ExampleModule> logger, Servers servers, Images images)
+        public ExampleModule(ILogger<ExampleModule> logger, Images images)
         {
             _logger = logger;
-            _servers = servers;
+            
             _images = images;
         }
             
@@ -54,31 +54,13 @@ namespace Template.Modules
             await ReplyAsync("Auf diese Nachricht mit ☃️ reagieren du musst, damit mehr Befehle benutzen du kannst");
         }
 
-        [Command("prefix")]
-        [RequireUserPermission(GuildPermission.Administrator)]
-        public async Task Prefix(string prefix = null)
-        {
-            if (prefix == null)
-            {
-                var guildPrefix = await _servers.GetGuildPrefix(Context.Guild.Id) ?? "#";
-                await Context.Channel.SendMessageAsync($"`{guildPrefix}` Das Momentane Prefix ist! Es für dich ändern Ich kann!\n" +
-                    $"Bloß `{guildPrefix}prefix neuesPrefix` eingeben du musst!");
-                return;
-            }
-
-            if (prefix.Length > 8)
-            {
-                await ReplyAsync("Zu lang dein angegebenes Prefix ist. Kein Schwein sich das merken kann!");
-                return;
-            }
-
-            await _servers.ModifyGuildPrefix(Context.Guild.Id, prefix);
-            await ReplyAsync($"Die Macht genutzt ich habe!\n Das Prefix `{prefix}` jetzt ist! ");
-        }
+        
 
         [Command("Image", RunMode = RunMode.Async)]
         public async Task Image(SocketGuildUser user)
         {
+            await Context.Channel.TriggerTypingAsync();
+
             var path = await _images.CreateImageAsync(user);
             await Context.Channel.SendFileAsync(path);
             File.Delete(path);
