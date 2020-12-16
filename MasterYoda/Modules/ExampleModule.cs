@@ -68,7 +68,7 @@ namespace Template.Modules
             }
 
             await _servers.ModifyGuildPrefix(Context.Guild.Id, prefix);
-            await ReplyAsync($"Die Macht genutzt ich habe!\n Das Prefix `{prefix}` jetzt ist!");
+            await ReplyAsync($"Die Macht genutzt ich habe!\n Das Prefix `{prefix}` jetzt ist! ");
         }
 
     }
