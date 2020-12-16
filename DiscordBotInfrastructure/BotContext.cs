@@ -17,6 +17,18 @@ namespace DiscordBotInfrastructure
     {
         public ulong Id { get; set; }
         public string Prefix { get; set; }
+    }
 
+    public class Rank
+    {
+        public int Id { get; set; }
+        public ulong RoleId { get; set; }
+        public ulong ServerId { get; set; }
+    }
+    public class AutoRole
+    {
+        public int Id { get; set; }
+        public ulong RoleId { get; set; }
+        public ulong ServerId { get; set; }
     }
 }

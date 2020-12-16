@@ -6,6 +6,7 @@ using Discord.Addons.Hosting;
 using Discord.Commands;
 using Discord.WebSocket;
 using DiscordBotInfrastructure;
+using MasterYoda.Utilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -57,7 +58,8 @@ namespace Template
                     services
                     .AddHostedService<CommandHandler>()
                     .AddDbContext<BotContext>()
-                    .AddSingleton<Servers>();
+                    .AddSingleton<Servers>()
+                    .AddSingleton<Images>();
                 })
                 .UseConsoleLifetime();
 

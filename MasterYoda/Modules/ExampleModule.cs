@@ -1,8 +1,11 @@
 ﻿using System.Data;
+using System.IO;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
 using DiscordBotInfrastructure;
+using MasterYoda.Utilities;
 using Microsoft.Extensions.Logging;
 
 namespace Template.Modules
@@ -11,11 +14,13 @@ namespace Template.Modules
     {
         private readonly Servers _servers;
         private readonly ILogger<ExampleModule> _logger;
+        private readonly Images _images;
 
-        public ExampleModule(ILogger<ExampleModule> logger, Servers servers)
+        public ExampleModule(ILogger<ExampleModule> logger, Servers servers, Images images)
         {
             _logger = logger;
             _servers = servers;
+            _images = images;
         }
             
 
@@ -71,5 +76,12 @@ namespace Template.Modules
             await ReplyAsync($"Die Macht genutzt ich habe!\n Das Prefix `{prefix}` jetzt ist! ");
         }
 
+        [Command("Image", RunMode = RunMode.Async)]
+        public async Task Image(SocketGuildUser user)
+        {
+            var path = await _images.CreateImageAsync(user);
+            await Context.Channel.SendFileAsync(path);
+            File.Delete(path);
+        }
     }
 }
