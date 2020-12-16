@@ -6,6 +6,8 @@ namespace DiscordBotInfrastructure
     public class BotContext : DbContext
     {
         public DbSet<Server> Servers { get; set; }
+        public DbSet<Rank> Ranks { get; set; }
+        public DbSet<AutoRole> AutoRoles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseMySql("server=localhost;user=root;database=yodadb;port=3306;Connect Timeout=5;");
