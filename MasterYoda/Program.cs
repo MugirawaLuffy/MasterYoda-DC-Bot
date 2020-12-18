@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Template.Services;
+using Victoria;
 
 namespace Template
 {
@@ -58,6 +59,10 @@ namespace Template
                     services
                     .AddHostedService<CommandHandler>()
                     .AddDbContext<BotContext>()
+                    .AddLavaNode(x =>
+                    {
+                        x.SelfDeaf = true;
+                    })
                     .AddSingleton<Servers>()
                     .AddSingleton<Images>()
                     .AddSingleton<Ranks>()

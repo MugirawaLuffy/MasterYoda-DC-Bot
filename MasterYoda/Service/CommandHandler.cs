@@ -8,7 +8,9 @@ using Discord.Addons.Hosting;
 using Discord.Commands;
 using Discord.WebSocket;
 using DiscordBotInfrastructure;
+using MasterYoda.Utilities;
 using Microsoft.Extensions.Configuration;
+using Victoria;
 
 namespace Template.Services
 {
@@ -19,49 +21,46 @@ namespace Template.Services
         private readonly CommandService _service;
         private readonly IConfiguration _config;
         private readonly Servers _servers;
+        private readonly AutoRolesHelper _autoRolesHelper;
+        private readonly LavaNode _lavaNode;
 
 
-        public CommandHandler(IServiceProvider provider, DiscordSocketClient client, CommandService service, IConfiguration config, Servers servers)
+        public CommandHandler(IServiceProvider provider, DiscordSocketClient client, 
+            CommandService service, IConfiguration config, Servers servers, AutoRolesHelper autoRolesHelper, LavaNode lavaNode)
         {
             _provider = provider;
             _client = client;
             _service = service;
             _config = config;
             _servers = servers;
+            _autoRolesHelper = autoRolesHelper;
+            _lavaNode = lavaNode;
         }
 
         public override async Task InitializeAsync(CancellationToken cancellationToken)
         {
             _client.MessageReceived += OnMessageReceived;
-            _client.ChannelCreated += OnChannelCreated;
-            _client.JoinedGuild += OnJoinedQuild;
-            _client.ReactionAdded += OnReactionAdded;
-
+            _client.UserJoined += OnUserJoined;
+            _client.Ready += OnReadyAsync;
             _service.CommandExecuted += OnCommandExecuted;
             await _service.AddModulesAsync(Assembly.GetEntryAssembly(), _provider);
         }
 
-        private async Task OnReactionAdded(Cacheable<IUserMessage, ulong> arg1, ISocketMessageChannel arg2, SocketReaction arg3)
+        private async Task OnReadyAsync()
         {
-            if (arg3.MessageId != 788512443437547570) return;
-            if (arg3.Emote.Name != "☃️") return;
-
-            var role = (arg2 as SocketGuildChannel).Guild.Roles.FirstOrDefault(x => x.Id == 788501697357545554);
-            await (arg3.User.Value as SocketGuildUser).AddRoleAsync(role);
-            //await (arg3.User.Value as SocketGuildUser).GuildPermissions.
+            if(!_lavaNode.IsConnected)
+            {
+                await _lavaNode.ConnectAsync();
+            }
         }
 
-        private async Task OnJoinedQuild(SocketGuild arg)
+        private async Task OnUserJoined(SocketGuildUser arg)
         {
-            await arg.DefaultChannel.SendMessageAsync("Angekommen Meister Yoda ist. Er euch helfen mit dem Server er wird!");
-        }
+            var roles = await _autoRolesHelper.GetAutoRolesAsync(arg.Guild);
+            if (roles.Count < 1)
+                return;
 
-        private async Task OnChannelCreated(SocketChannel arg)
-        {
-            if ((arg as ITextChannel) == null) return;
-            var channel = arg as ITextChannel;
-
-            await channel.SendMessageAsync("Ein neuer Channel created wurde");
+            await arg.AddRolesAsync(roles);
         }
 
         private async Task OnMessageReceived(SocketMessage arg)
