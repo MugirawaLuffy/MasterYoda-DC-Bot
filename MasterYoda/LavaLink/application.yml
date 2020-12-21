@@ -1,5 +1,5 @@
 ﻿server: # REST and WS server
-  port: 2333
+  port: 1313
   address: 0.0.0.0
 lavalink:
   server:
@@ -10,7 +10,6 @@ lavalink:
       soundcloud: true
       twitch: true
       vimeo: true
-      mixer: true
       http: true
       local: false
     bufferDurationMs: 400

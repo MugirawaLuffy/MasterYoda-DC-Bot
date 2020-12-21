@@ -48,6 +48,7 @@ namespace Template.Services
 
         private async Task OnReadyAsync()
         {
+            await _lavaNode.ConnectAsync();
             if(!_lavaNode.IsConnected)
             {
                 await _lavaNode.ConnectAsync();

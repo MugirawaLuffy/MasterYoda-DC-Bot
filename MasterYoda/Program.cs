@@ -6,7 +6,10 @@ using Discord.Addons.Hosting;
 using Discord.Commands;
 using Discord.WebSocket;
 using DiscordBotInfrastructure;
+//using MasterYoda.Modules;
 using MasterYoda.Utilities;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,7 +22,7 @@ namespace Template
     public class Program
     {
         //static ulong verifiedID;
-        static async Task Main()
+        public static async Task Main()
         {
             var builder = new HostBuilder()
                 .ConfigureAppConfiguration(x =>
@@ -57,18 +60,19 @@ namespace Template
                 .ConfigureServices((context, services) =>
                 {
                     services
-                    .AddHostedService<CommandHandler>()
-                    .AddDbContext<BotContext>()
-                    .AddLavaNode(x =>
-                    {
-                        x.SelfDeaf = true;
-                    })
-                    .AddSingleton<Servers>()
-                    .AddSingleton<Images>()
-                    .AddSingleton<Ranks>()
-                    .AddSingleton<AutoRoles>()
-                    .AddSingleton<RanksHelper>()
-                    .AddSingleton<AutoRolesHelper>();
+                   .AddHostedService<CommandHandler>()
+                   .AddDbContext<BotContext>()
+                   .AddLavaNode(x =>
+                   {
+                       x.SelfDeaf = true;
+                   })
+                   .AddSingleton<Servers>()
+                   .AddSingleton<Images>()
+                   .AddSingleton<Ranks>()
+                   .AddSingleton<AutoRoles>()
+                   .AddSingleton<RanksHelper>()
+                   .AddSingleton<AutoRolesHelper>()
+                   .AddAuthentication(AzureADDefaults.AuthenticationScheme);
                 })
                 .UseConsoleLifetime();
 
