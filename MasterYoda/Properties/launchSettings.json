@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MasterYoda": {
+      "commandName": "Project",
+      "remoteDebugEnabled": false
+    }
+  }
+}

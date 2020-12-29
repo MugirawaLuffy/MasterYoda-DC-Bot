@@ -64,6 +64,7 @@ namespace Template
                    .AddDbContext<BotContext>()
                    .AddLavaNode(x =>
                    {
+                       x.Port = 1313;
                        x.SelfDeaf = true;
                    })
                    .AddSingleton<Servers>()

@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterYoda", "MasterYoda\MasterYoda.csproj", "{77FB3A71-2767-49FF-972F-87C61D7015A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordBotInfrastructure", "DiscordBotInfrastructure\DiscordBotInfrastructure.csproj", "{90756C45-23E6-4C91-8428-1AC260EEC95D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordBotInfrastructure", "DiscordBotInfrastructure\DiscordBotInfrastructure.csproj", "{90756C45-23E6-4C91-8428-1AC260EEC95D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RainbowSixChallenges", "RainbowSixChallenges\RainbowSixChallenges.csproj", "{D50203C7-5CB3-437F-BA32-E723BE0955F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{90756C45-23E6-4C91-8428-1AC260EEC95D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90756C45-23E6-4C91-8428-1AC260EEC95D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90756C45-23E6-4C91-8428-1AC260EEC95D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D50203C7-5CB3-437F-BA32-E723BE0955F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D50203C7-5CB3-437F-BA32-E723BE0955F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D50203C7-5CB3-437F-BA32-E723BE0955F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D50203C7-5CB3-437F-BA32-E723BE0955F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

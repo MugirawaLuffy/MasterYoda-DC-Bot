@@ -40,5 +40,31 @@ namespace MasterYoda.Modules
             var embed = builder.Build();
             await Context.Channel.SendMessageAsync("Ein Meme ich dir jetzt schicke", false, embed);
         }
+
+        [Command("r6-randomizer")]
+        public async Task RainbowRand([Remainder]string arg)
+        {
+            await Context.Channel.TriggerTypingAsync();
+
+
+            string layout = string.Empty;
+            var rainbow = new RainbowSixChallenges.RandomClient();
+
+            if (arg.Equals("attacker"))
+            {
+                layout = rainbow.GetRandomAttacker();
+            } else if (arg.Equals("defender"))
+            {
+                layout = rainbow.GetRandomDefender();
+            }
+
+            var builder = new EmbedBuilder()
+                .WithColor(new Color(255, 251, 10))
+                .WithTitle("Random " + arg + " layout")
+                .AddField("layout", layout)
+                .WithFooter("Falls das Scope für die Waffe nicht verfügbar ist, das nächst schlechtere nehmen du musst!");
+            var embed = builder.Build();
+            await Context.Channel.SendMessageAsync($"Ein Random `{arg}` layout die Macht dir gibt", false, embed);
+        }
     }
 }

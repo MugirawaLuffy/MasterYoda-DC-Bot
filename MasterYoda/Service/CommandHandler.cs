@@ -10,6 +10,7 @@ using Discord.WebSocket;
 using DiscordBotInfrastructure;
 using MasterYoda.Utilities;
 using Microsoft.Extensions.Configuration;
+using SharpLink;
 using Victoria;
 
 namespace Template.Services
@@ -23,7 +24,7 @@ namespace Template.Services
         private readonly Servers _servers;
         private readonly AutoRolesHelper _autoRolesHelper;
         private readonly LavaNode _lavaNode;
-
+        LavalinkManager lavalinkManager;
 
         public CommandHandler(IServiceProvider provider, DiscordSocketClient client, 
             CommandService service, IConfiguration config, Servers servers, AutoRolesHelper autoRolesHelper, LavaNode lavaNode)
@@ -35,6 +36,17 @@ namespace Template.Services
             _servers = servers;
             _autoRolesHelper = autoRolesHelper;
             _lavaNode = lavaNode;
+
+            lavalinkManager = new LavalinkManager(_client, new LavalinkManagerConfig
+            {
+                RESTHost = "localhost",
+                RESTPort = 2333,
+                WebSocketHost = "localhost",
+                WebSocketPort = 2333,
+                Authorization = "YOUR_SECRET_AUTHORIZATION_KEY",
+                TotalShards = 1
+            });
+
         }
 
         public override async Task InitializeAsync(CancellationToken cancellationToken)
