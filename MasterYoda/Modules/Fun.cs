@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace MasterYoda.Modules
 {
     public class Fun : ModuleBase
@@ -22,7 +24,7 @@ namespace MasterYoda.Modules
 
             var client = new HttpClient();
             var result = await client.GetStringAsync($"https://reddit.com/r/{subreddit ?? "memes"}/random.json?limit=1");
-            if(!result.StartsWith("["))
+            if (!result.StartsWith("["))
             {
                 await Context.Channel.SendMessageAsync("Das subreddit es nicht gibt!");
                 return;
@@ -42,7 +44,7 @@ namespace MasterYoda.Modules
         }
 
         [Command("r6-randomizer")]
-        public async Task RainbowRand([Remainder]string arg)
+        public async Task RainbowRand([Remainder] string arg)
         {
             await Context.Channel.TriggerTypingAsync();
 
@@ -53,7 +55,8 @@ namespace MasterYoda.Modules
             if (arg.Equals("attacker"))
             {
                 layout = rainbow.GetRandomAttacker();
-            } else if (arg.Equals("defender"))
+            }
+            else if (arg.Equals("defender"))
             {
                 layout = rainbow.GetRandomDefender();
             }
@@ -65,6 +68,23 @@ namespace MasterYoda.Modules
                 .WithFooter("Falls das Scope für die Waffe nicht verfügbar ist, das nächst schlechtere nehmen du musst!");
             var embed = builder.Build();
             await Context.Channel.SendMessageAsync($"Ein Random `{arg}` layout die Macht dir gibt", false, embed);
+        }
+
+        [Command("ow-randomizer")]
+        public async Task OverwatchRand()
+        {
+            await Context.Channel.TriggerTypingAsync();
+
+            RainbowSixChallenges.OverwatchRandomizer rand = new RainbowSixChallenges.OverwatchRandomizer();
+            string op = rand.GetRandomOperator();
+
+            var builder = new EmbedBuilder()
+                .WithColor(new Color(250, 250, 250))
+                .WithTitle("Random " + "Overwatch " + "Operator")
+                .AddField("Operator", op)
+                .WithFooter("Falls der Operator gewählt bereits ist, den am nächsten daneben liegenden nehmen du musst");
+            var embed = builder.Build();
+            await Context.Channel.SendMessageAsync($"Ein zufälligen Operator die Macht dir gibt", false, embed);
         }
     }
 }

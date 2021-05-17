@@ -49,7 +49,7 @@ namespace Template
                     };
 
                     config.Token = context.Configuration["token"];
-                    
+
                 })
                 .UseCommandService((context, config) =>
                 {
